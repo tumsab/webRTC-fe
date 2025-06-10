@@ -30,7 +30,7 @@ function ChatPage() {
   const [wait, setWait] = useState(false);
 
   function startConnection() {
-    const socket = new WebSocket("ws://localhost:8080");
+    const socket = new WebSocket("wss://webrtc-wss-1.onrender.com");
     socket.onopen = () => {
       console.log('connected');
       setSocket(socket);
