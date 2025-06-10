@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 
 import '../App.css'
 import { useParams } from 'react-router-dom'
-import axios from 'axios'
 
 function ChatPage() {
 
