@@ -1,138 +1,87 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Video, Users, ArrowRight } from 'lucide-react';
-import ErrorNotification from '../components/ErrorNotification';
-import VideoBackground from '../components/VideoBackground';
+import { Video, Users, ArrowRight, Sparkles } from 'lucide-react';
 
-export const LandingPage = () => {
-  const navigate = useNavigate();
+function HomePage() {
   const [name, setName] = useState('');
-  const [error, setError] = useState('');
-  const [showError, setShowError] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-  };
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (name.trim() === '') {
-      setError('Please enter your name to continue');
-      setShowError(true);
-      return;
+    if (name.trim()) {
+      navigate(`/chat/${encodeURIComponent(name.trim())}`);
     }
-    
-    navigate(`/chatrandom/${encodeURIComponent(name.trim())}`);
-  };
-
-  const closeError = () => {
-    setShowError(false);
   };
 
   return (
-    <div className="h-full w-full overflow-hidden">
-      <VideoBackground />
-      
-      <ErrorNotification 
-        message={error}
-        isVisible={showError}
-        onClose={closeError}
-      />
-
-      <div className="container mx-auto px-4 py-12 h-screen flex flex-col items-center justify-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-8"
-        >
-          <div className="flex items-center justify-center mb-4">
-            <Video className="h-10 w-10 text-sky-400 mr-2" />
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-sky-400 to-teal-400 bg-clip-text text-transparent">
-              ChatRandom
-            </h1>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center p-4">
+      <div className="max-w-md w-full">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center p-4 bg-blue-600 rounded-2xl mb-6">
+            <Video className="w-12 h-12 text-white" />
           </div>
-          <p className="text-slate-300 text-lg max-w-xl mx-auto">
-            Connect with interesting people from around the world through random video chats
+          <h1 className="text-4xl font-bold text-white mb-3 flex items-center justify-center gap-2">
+            Video Chat
+            <Sparkles className="w-8 h-8 text-yellow-400" />
+          </h1>
+          <p className="text-slate-300 text-lg">
+            Connect instantly with crystal-clear video calls
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="w-full max-w-md"
-        >
-          <div className="card p-8">
-            <div className="flex items-center mb-6">
-              <Users className="h-6 w-6 text-sky-400 mr-2" />
-              <h2 className="text-2xl font-semibold">Start Chatting</h2>
+        {/* Form Card */}
+        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-2xl">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-slate-200 mb-2">
+                Your Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter your name"
+                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                required
+              />
             </div>
             
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-2">
-                <label htmlFor="name" className="block text-sm font-medium text-slate-300">
-                  Your Display Name
-                </label>
-                <input
-                  id="name"
-                  type="text"
-                  value={name}
-                  onChange={handleChange}
-                  placeholder="Enter your name"
-                  className="input-field"
-                  autoComplete="off"
-                />
+            <button
+              type="submit"
+              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transform hover:scale-105"
+            >
+              <Users className="w-5 h-5" />
+              Join Video Chat
+              <ArrowRight className="w-5 h-5" />
+            </button>
+          </form>
+
+          {/* Features */}
+          <div className="mt-8 pt-6 border-t border-white/10">
+            <div className="grid grid-cols-2 gap-4 text-center">
+              <div>
+                <div className="text-2xl font-bold text-blue-400 mb-1">HD</div>
+                <div className="text-xs text-slate-400">Video Quality</div>
               </div>
-              
-              <motion.button
-                type="submit"
-                className="btn-primary w-full flex items-center justify-center"
-                whileTap={{ scale: 0.98 }}
-              >
-                Start Video Chat
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </motion.button>
-            </form>
-            
-            <div className="mt-6 pt-6 border-t border-slate-700">
-              <p className="text-sm text-slate-400 text-center">
-                By continuing, you agree to our Terms of Service and Privacy Policy.
-              </p>
+              <div>
+                <div className="text-2xl font-bold text-emerald-400 mb-1">P2P</div>
+                <div className="text-xs text-slate-400">Secure Connection</div>
+              </div>
             </div>
           </div>
-          
-          <div className="mt-8 flex justify-center space-x-6">
-            <motion.div
-              className="flex flex-col items-center"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-            >
-              <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center mb-2">
-                <Users className="h-6 w-6 text-sky-400" />
-              </div>
-              <p className="text-sm text-slate-400">Meet New People</p>
-            </motion.div>
-            
-            <motion.div
-              className="flex flex-col items-center"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-            >
-              <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center mb-2">
-                <Video className="h-6 w-6 text-sky-400" />
-              </div>
-              <p className="text-sm text-slate-400">Video Chat</p>
-            </motion.div>
-          </div>
-        </motion.div>
+        </div>
+
+        {/* Footer */}
+        <div className="text-center mt-6">
+          <p className="text-slate-400 text-sm">
+            Secure, fast, and reliable video calling
+          </p>
+        </div>
       </div>
     </div>
   );
-};
+}
 
-export default LandingPage;
+export default HomePage;
