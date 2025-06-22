@@ -39,7 +39,7 @@ function ChatPage() {
   async function newPC(){
     const pc = new RTCPeerConnection({
       iceServers: [
-        { urls: "stun:stun.call.tumsab.xyz" },
+        { urls: "stun:stun.l.google.com:19302" },
         { 
           urls: "turn:relay1.expressturn.com:3480", 
           username: "000000002064890723", 
