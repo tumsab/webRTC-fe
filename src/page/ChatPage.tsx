@@ -41,9 +41,9 @@ function ChatPage() {
       iceServers: [
         { urls: "stun:stun.l.google.com:19302" },
         { 
-          urls: "turn:relay1.expressturn.com:3480", 
-          username: "000000002064890723", 
-          credential: "tB2WFXTs5dzQ219hv/xQOR4/Mqc="
+          urls: "free.expressturn.com:3478", 
+          username: "000000002092057785", 
+          credential: "qCb7IrkbvuKYTtkLK1vUwbuu0r8="
         }
       ]
     });
